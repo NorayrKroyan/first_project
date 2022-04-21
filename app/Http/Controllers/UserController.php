@@ -53,16 +53,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|same:confirm-password',
-            'roles' => 'required',
-            'avatar'  => 'required'
-        ]);
+       
     
         $input = $request->all();
         if ($request->hasFile('avatar')) {
@@ -121,15 +115,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEditRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required',
-            'avatar' => 'required',
-        ]);
+        
     
         $input = $request->all();
       
@@ -186,20 +174,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {   
-        // dd($request['users']);
-        // if($request->ajax()) {
-        //     // ajax request
-        //     return response()->json(['status' => 'success']);
-        // } 
-        // dd($id);
+        
         $user  = User::find($id);
-        // dd($user);
+       
         unlink(public_path('storage/img/') . $user->avatar);
         $user->delete();
         
         return response()->json(['status' => 'deleted']);
 
-        // return response()->json(['success' => 'Deleted']);
+        
                         
     }
 }
