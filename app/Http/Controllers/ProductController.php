@@ -29,12 +29,9 @@ class ProductController extends Controller
     }
     
   
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+      
     
         Product::create($request->all());
     
@@ -55,7 +52,7 @@ class ProductController extends Controller
     }
     
   
-    public function update(Request $request, Product $product)
+    public function update(PR $request, Product $product)
     {
          request()->validate([
             'name' => 'required',
